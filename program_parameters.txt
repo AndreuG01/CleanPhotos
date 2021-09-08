@@ -1,0 +1,8 @@
+ARGUMENTS --> ./CleanPhotos (-e / --edited) (-l / --live) path
+
+1) ./CleanPhotos --> Shows all the .aae files and .mov files that have their corresponding .heic files
+2) ./CleanPhotos (-e / --edited) --> ERROR. Shows the behaviour of the program
+3) ./CleanPhotos (-l / --live) --> ERROR. Shows the behaviour of the program
+4) ./CleanPhotos (-e / --edited) path --> Opens the path, removes all the .aae and the non-edited photo of the edited photo
+5) ./CleanPhotos (-l / --live) path --> Opens the path, removes all the .mov files that have an associated .heic file
+6) ./CleanPhotos (-e / --edited) (-l / --live) path --> Performs both 4) and 5)
