@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 
-# .idea folder
+# Added by Andreu
 *.idea
-
+.DS_store
 cmake-build-debug
