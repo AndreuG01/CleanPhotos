@@ -19,6 +19,7 @@ typedef struct _hashTable {
 int hash_mod(char *data, int n);
 HashTable *init_hash_table(HashTable *table, char *name);
 HashTable *add_to_table(HashTable *table, char *file_name, char *full_path_file, char *extension);
+Node *find_in_table(HashTable *table, char *name);
 void print_hash_table(HashTable *table);
 void clear_hash_table(HashTable *table);
 

@@ -32,8 +32,15 @@
 #define WRONG_ARGS_EXIT_CODE 102
 #define MALLOC_WRONG_EXIT_CODE 104
 
+// Possible flag codes
+#define AAE_EXTENSION "aae"
+#define MOV_EXTENSION "mov"
 
 void *check_malloc(void *pointer, char *msg, int error_code);
-int power(int num, int exp);
+char *to_lower(char *str);
+char *get_extension(char *file_name);
+char *get_name(char *name);
+char *get_edited_name(char *name_file);
+char *build_full_path_file(char *path, char *name_file);
 
 #endif //CLEANPHOTOS_UTILS_H

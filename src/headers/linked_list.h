@@ -21,6 +21,8 @@ typedef struct _linkedList {
 
 LinkedList *init_list(LinkedList *list);
 LinkedList *add_node_as_last(LinkedList *list, char *file_name, char *full_path_file, char *extension);
+LinkedList *delete_node(LinkedList *list, Node *node);
+Node *find_node_in_list(LinkedList *list, const char *file_name);
 char *find_word_in_list(LinkedList *list, const char *file_name);
 void clear_list(LinkedList *list);
 void print_list(LinkedList *list);

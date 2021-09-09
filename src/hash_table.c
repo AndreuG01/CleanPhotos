@@ -37,6 +37,11 @@ HashTable *init_hash_table(HashTable *table, char *name) {
     return table;
 }
 
+Node *find_in_table(HashTable *table, char *name) {
+    int key = hash_mod(name, N);
+    return find_node_in_list(&table->list[key], name);
+}
+
 int is_in_table(HashTable *table, char *name) {
     int key = hash_mod(name, N);
     if (find_word_in_list(&table->list[key], name) != NULL) {
@@ -47,7 +52,7 @@ int is_in_table(HashTable *table, char *name) {
 }
 
 HashTable *add_to_table(HashTable *table, char *file_name, char *full_path_file, char *extension) {
-    if (is_in_table(table, file_name) == FALSE) {
+    if (is_in_table(table, full_path_file) == FALSE) {
         // The word is not in the table, therefore we have to add it
         int key = hash_mod(file_name, N);
         add_node_as_last(&table->list[key], file_name, full_path_file, extension);

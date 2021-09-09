@@ -45,6 +45,44 @@ LinkedList *add_node_as_last(LinkedList *list, char *file_name, char *full_path_
 }
 
 
+LinkedList *delete_node(LinkedList *list, Node *node) {
+    if (node == list->first && node == list->last) {
+        // The node is the only one in the list
+        list->first = node->next;
+        list->last = node->next;
+    } else if (node == list->first && node != list->last) {
+        // The node is the first of the list
+        list->first = node->next;
+    } else {
+        Node *tmp_node = list->first;
+        while (tmp_node->next != node) {
+            tmp_node = tmp_node->next;
+        }
+        if (node->next != NULL) {
+            // The node is in the middle of the list
+            tmp_node->next = node->next;
+            node->next = NULL;
+        } else if (node->next == NULL) {
+            // The node is the last of the list
+            tmp_node->next = node->next;
+            list->last = tmp_node;
+        }
+    }
+
+    return list;
+}
+
+Node *find_node_in_list(LinkedList *list, const char *file_name) {
+    Node *tmp_node = list->first;
+    while (tmp_node != NULL) {
+        if (strcmp(tmp_node->file_name, file_name) == 0) {
+            return tmp_node;
+        }
+        tmp_node = tmp_node->next;
+    }
+    return NULL;
+}
+
 char *find_word_in_list(LinkedList *list, const char *file_name) {
     Node *tmp_node = list->first;
     while (tmp_node != NULL) {
