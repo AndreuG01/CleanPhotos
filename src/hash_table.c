@@ -42,22 +42,12 @@ Node *find_in_table(HashTable *table, char *name) {
     return find_node_in_list(&table->list[key], name);
 }
 
-int is_in_table(HashTable *table, char *name) {
-    int key = hash_mod(name, N);
-    if (find_word_in_list(&table->list[key], name) != NULL) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-}
 
 HashTable *add_to_table(HashTable *table, char *file_name, char *full_path_file, char *extension) {
-    if (is_in_table(table, full_path_file) == FALSE) {
-        // The word is not in the table, therefore we have to add it
-        int key = hash_mod(file_name, N);
-        add_node_as_last(&table->list[key], file_name, full_path_file, extension);
-        table->elements_in_table += 1;
-    }
+    // We will add every element regardless if it is already in the table
+    int key = hash_mod(file_name, N);
+    add_node_as_last(&table->list[key], file_name, full_path_file, extension);
+    table->elements_in_table += 1;
 
     return table;
 }

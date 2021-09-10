@@ -78,17 +78,19 @@ int main(int argc, char *argv[]) {
 
         if (directory_can_be_opened(suggested_path) == TRUE) {
             printf("%s\n", DIR_OPENED_CORRECT_MSG);
+            int num_deleted_files = 0;
             LinkedList list;
             init_list(&list);
             HashTable table;
             init_hash_table(&table, "Table");
             if (status == EDITED) {
-                delete_files(suggested_path, &table, &list, TRUE, FALSE);
+                delete_files(suggested_path, &table, &list, TRUE, FALSE, &num_deleted_files);
             } else if (status == LIVE) {
-                delete_files(suggested_path, &table, &list, FALSE, TRUE);
+                delete_files(suggested_path, &table, &list, FALSE, TRUE, &num_deleted_files);
             } else if (status == EDITED_AND_LIVE) {
-                delete_files(suggested_path, &table, &list, TRUE, TRUE);
+                delete_files(suggested_path, &table, &list, TRUE, TRUE, &num_deleted_files);
             }
+            printf("\n%d FILES have been deleted\n", num_deleted_files);
             clear_list(&list);
             clear_hash_table(&table);
         } else {
