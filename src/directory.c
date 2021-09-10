@@ -67,7 +67,16 @@ void live_removal(HashTable *table, LinkedList *list, int *file_counter) {
     }
 }
 
-void delete_files(char *path, HashTable *table, LinkedList *list, int edited_flag, int live_flag, int *file_counter) {
+void delete_files(HashTable *table, LinkedList *list, int edited_flag, int live_flag, int *file_counter) {
+    if (edited_flag == TRUE) {
+        edited_removal(table, list, file_counter);
+    }
+    if (live_flag == TRUE) {
+        live_removal(table, list, file_counter);
+    }
+}
+
+void process_dir(char *path, HashTable *table, LinkedList *list, int edited_flag, int live_flag) {
     DIR *dir_pointer = opendir(path);
     if (dir_pointer == NULL) {
         printf("%s: %s\n", DIR_OPENED_WRONG_MSG, path);
@@ -79,7 +88,7 @@ void delete_files(char *path, HashTable *table, LinkedList *list, int edited_fla
 
     while (entity != NULL) {
         char *entity_extension = get_extension(entity->d_name);
-        char *entity_name = get_name(entity->d_name);
+        char *entity_name = get_name(entity->d_name, path);
         char *full_path_file = build_full_path_file(path, entity->d_name);
         //if (entity_extension != NULL) {
         if (entity->d_type == DT_REG) {
@@ -104,17 +113,10 @@ void delete_files(char *path, HashTable *table, LinkedList *list, int edited_fla
                 add_to_table(table, entity_name, full_path_file, entity_extension);
             }
         } else if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0) {
-            delete_files(full_path_file, table, list, edited_flag, live_flag, file_counter);
+            process_dir(full_path_file, table, list, edited_flag, live_flag);
         }
         //}
         entity = readdir(dir_pointer);
     }
     closedir(dir_pointer);
-
-    if (edited_flag == TRUE) {
-        edited_removal(table, list, file_counter);
-    }
-    if (live_flag == TRUE) {
-        live_removal(table, list, file_counter);
-    }
 }

@@ -52,7 +52,7 @@ char *get_extension(char *file_name) {
 }
 
 
-char *get_name(char *name) {
+char *get_name(char *name, char *path) {
     int length = (int)strlen(name), i = length;
     char *last_point_ptr = &name[length - 1], *name_ptr = name;
     char *file_name = malloc(sizeof(char) * 100), *file_name_ptr = file_name;
@@ -66,8 +66,9 @@ char *get_name(char *name) {
         }
         i--;
     }
-    if (point_found == FALSE) { // No point has been found, therefore we return the same name that we have received
-        return name;
+    if (point_found == FALSE) {
+        // No point has been found, therefore we return the same name that we have received
+        return build_full_path_file(path, name);
     } else {
         // We copy each character into file_name until we reach the address where the point has been found (previously
         // found)
@@ -77,7 +78,7 @@ char *get_name(char *name) {
         }
         *file_name_ptr = '\0';
 
-        return file_name;
+        return build_full_path_file(path, file_name);
     }
 }
 

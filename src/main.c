@@ -84,11 +84,14 @@ int main(int argc, char *argv[]) {
             HashTable table;
             init_hash_table(&table, "Table");
             if (status == EDITED) {
-                delete_files(suggested_path, &table, &list, TRUE, FALSE, &num_deleted_files);
+                process_dir(suggested_path, &table, &list, TRUE, FALSE);
+                delete_files(&table, &list, TRUE, FALSE, &num_deleted_files);
             } else if (status == LIVE) {
-                delete_files(suggested_path, &table, &list, FALSE, TRUE, &num_deleted_files);
+                process_dir(suggested_path, &table, &list, FALSE, TRUE);
+                delete_files(&table, &list, FALSE, TRUE, &num_deleted_files);
             } else if (status == EDITED_AND_LIVE) {
-                delete_files(suggested_path, &table, &list, TRUE, TRUE, &num_deleted_files);
+                process_dir(suggested_path, &table, &list, TRUE, TRUE);
+                delete_files(&table, &list, TRUE, TRUE, &num_deleted_files);
             }
             printf("\n%d FILES have been deleted\n", num_deleted_files);
             clear_list(&list);
@@ -99,8 +102,11 @@ int main(int argc, char *argv[]) {
         }
     }
 
-
-
+    /*HashTable table; LinkedList list;
+    init_hash_table(&table, "Table"); init_list(&list);
+    int counter = 0;
+    process_dir("../Test", &table, &list, TRUE, FALSE);
+    delete_files(&table, &list, TRUE, FALSE, &counter);*/
 
     return 0;
 }

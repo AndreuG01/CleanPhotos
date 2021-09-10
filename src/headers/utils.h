@@ -39,7 +39,7 @@
 void *check_malloc(void *pointer, char *msg, int error_code);
 char *to_lower(char *str);
 char *get_extension(char *file_name);
-char *get_name(char *name);
+char *get_name(char *name, char *path);
 char *get_edited_name(char *name_file);
 char *build_full_path_file(char *path, char *name_file);
 

@@ -46,6 +46,7 @@ Node *find_in_table(HashTable *table, char *name) {
 HashTable *add_to_table(HashTable *table, char *file_name, char *full_path_file, char *extension) {
     // We will add every element regardless if it is already in the table
     int key = hash_mod(file_name, N);
+    //printf("%s --> KEY %d\n", file_name, key);
     add_node_as_last(&table->list[key], file_name, full_path_file, extension);
     table->elements_in_table += 1;
 
