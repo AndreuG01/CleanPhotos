@@ -21,14 +21,12 @@
 
 #define DIR_OPENED_CORRECT_MSG "The directory has been opened correctly"
 #define DIR_OPENED_WRONG_MSG "Could not open the directory: "
-#define WRONG_ARGS_MSG "The program should receive a directory"
 #define MALLOC_WRONG_MSG "Memory allocation went wrong"
 
 
 
 // Error codes
 #define DIR_NOT_OPENED_EXIT_CODE 100
-#define WRONG_ARGS_EXIT_CODE 102
 #define MALLOC_WRONG_EXIT_CODE 104
 
 // Possible flag codes
@@ -41,5 +39,6 @@ char *get_extension(char *file_name);
 char *get_name(char *name, char *path);
 char *get_edited_name(char *name_file);
 char *build_full_path_file(char *path, char *name_file, int need_free);
+void print_help();
 
 #endif //CLEANPHOTOS_UTILS_H

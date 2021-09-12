@@ -109,15 +109,11 @@ char *get_edited_name(char *name_file) {
     return edited_name;
 }
 
-char *build_full_path_file(char *path, char *name_file, int need_free) {
-    char *full_path = check_malloc(malloc(sizeof(char) * 1000), MALLOC_WRONG_MSG, MALLOC_WRONG_EXIT_CODE);
-    strcat(full_path, path);
-    strcat(full_path, "/");
-    strcat(full_path, name_file);
-    if (need_free == TRUE) {
-        //free(name_file);
-        //FREE_COUNT += 1;
-    }
 
-    return full_path;
+void print_help() {
+    printf("usage: ./CleanPhotos [OPTIONS] directory\n");
+    printf("The arguments that the program receives can be combined depending on the needs\n");
+    printf("  -e, --edited      Removes the editing file and the original file if there is an edited file\n");
+    printf("  -l, --live        Removes the video of a live mode picture\n");
+    printf("  -r, --recursive   Allows the program to process subdirectories of the given directory\n");
 }
