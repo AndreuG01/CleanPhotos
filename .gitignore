@@ -56,5 +56,4 @@ dkms.conf
 *.idea
 .DS_store
 cmake-build-debug
-Test
-TestCopy
+.gitattributes

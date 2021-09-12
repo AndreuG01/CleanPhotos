@@ -8,10 +8,7 @@
 #include <stdio.h>
 
 
-#include "headers/utils.h"
 
-
-// TODO: find an optimal hash function
 int hash_mod(char *data, int n) {
     int l = strlen(data);
     char c;

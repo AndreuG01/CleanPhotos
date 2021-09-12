@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 
+extern int FREE_COUNT;
+
 Node *new_dyn_node(char *file_name, char *full_path_file, char *extension) {
     Node *node = check_malloc(malloc(sizeof(Node)), MALLOC_WRONG_MSG, MALLOC_WRONG_EXIT_CODE);
 
@@ -102,7 +104,8 @@ void clear_list(LinkedList *list) {
         Node *tmp_node = list->first;
         while (tmp_node != NULL) {
             list->first = tmp_node->next;
-            free(tmp_node);
+            //free(tmp_node);
+            //FREE_COUNT += 1;
             tmp_node = list->first;
         }
     }

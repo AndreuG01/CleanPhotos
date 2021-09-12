@@ -11,6 +11,9 @@
 
 #include "headers/utils.h"
 
+extern int MALLOC_COUNT;
+extern int FREE_COUNT;
+
 int directory_can_be_opened(char *path) {
     DIR *dir = opendir(path);
 
@@ -76,7 +79,7 @@ void delete_files(HashTable *table, LinkedList *list, int edited_flag, int live_
     }
 }
 
-void process_dir(char *path, HashTable *table, LinkedList *list, int edited_flag, int live_flag) {
+void process_dir(char *path, HashTable *table, LinkedList *list, int edited_flag, int live_flag, int recursive_flag) {
     DIR *dir_pointer = opendir(path);
     if (dir_pointer == NULL) {
         printf("%s: %s\n", DIR_OPENED_WRONG_MSG, path);
@@ -89,7 +92,7 @@ void process_dir(char *path, HashTable *table, LinkedList *list, int edited_flag
     while (entity != NULL) {
         char *entity_extension = get_extension(entity->d_name);
         char *entity_name = get_name(entity->d_name, path);
-        char *full_path_file = build_full_path_file(path, entity->d_name);
+        char *full_path_file = build_full_path_file(path, entity->d_name, FALSE);
         //if (entity_extension != NULL) {
         if (entity->d_type == DT_REG) {
             int special_file_found = FALSE;
@@ -112,8 +115,15 @@ void process_dir(char *path, HashTable *table, LinkedList *list, int edited_flag
             if (special_file_found == FALSE) {
                 add_to_table(table, entity_name, full_path_file, entity_extension);
             }
-        } else if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0) {
-            process_dir(full_path_file, table, list, edited_flag, live_flag);
+            //free(entity_extension);
+            //FREE_COUNT += 1;
+            //free(entity_name);
+            //FREE_COUNT += 1;
+            //free(full_path_file);
+            //FREE_COUNT += 1;
+
+        } else if (entity->d_type == DT_DIR && strcmp(entity->d_name, ".") != 0 && strcmp(entity->d_name, "..") != 0 && recursive_flag == TRUE) {
+            process_dir(full_path_file, table, list, edited_flag, live_flag, recursive_flag);
         }
         //}
         entity = readdir(dir_pointer);

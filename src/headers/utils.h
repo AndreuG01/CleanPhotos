@@ -5,17 +5,16 @@
 #ifndef CLEANPHOTOS_UTILS_H
 #define CLEANPHOTOS_UTILS_H
 
-// Flag codes
-#define NO_FLAG 0
-#define EDITED 1
-#define LIVE 2
-#define EDITED_AND_LIVE 3
+
+// Flag strings
+#define EDITED_FLAG_SHORT "-e"
+#define EDITED_FLAG_LONG "--edited"
+#define LIVE_FLAG_SHORT "-l"
+#define LIVE_FLAG_LONG "--live"
+#define RECURSIVE_FLAG_SHORT "-r"
+#define RECURSIVE_FLAG_LONG "--recursive"
 
 
-// Terminal colors escape codes
-#define NORMAL_COLOR  "\x1B[0m"
-#define GREEN  "\x1B[32m"
-#define BLUE  "\x1b[36m"
 
 #define TRUE 1
 #define FALSE 0
@@ -41,6 +40,6 @@ char *to_lower(char *str);
 char *get_extension(char *file_name);
 char *get_name(char *name, char *path);
 char *get_edited_name(char *name_file);
-char *build_full_path_file(char *path, char *name_file);
+char *build_full_path_file(char *path, char *name_file, int need_free);
 
 #endif //CLEANPHOTOS_UTILS_H
