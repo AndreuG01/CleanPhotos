@@ -26,58 +26,54 @@ int directory_can_be_opened(char *path) {
 
 /**
  *
- * @param table -> the table containing all the other files
- * @param list -> the list containing all the mov and aae files
+ * @param table -> the table containing the "non-special files"
+ * @param list -> the list containing all the aae and the mov files
+ * @param edited_flag -> indicates if the edited flag is active
+ * @param live_flag -> indicates if the live flag is active
+ * @param verbose_flag -> indicates if the verbose flag is active
+ * @param file_counter -> counts the number of files that are deleted
  */
-void edited_removal(HashTable *table, LinkedList *list, int *file_counter) {
-    Node *original_file, *edited_file, *current_node = list->first;
+
+void delete_files(HashTable *table, LinkedList *list, int edited_flag, int live_flag, int verbose_flag, int *file_counter) {
+    Node *current_node = list->first, *tmp_node;
     while (current_node != NULL) {
-        original_file = find_in_table(table, current_node->file_name);
-        edited_file = find_in_table(table, get_edited_name(current_node->file_name));
-        if (edited_file != NULL && original_file != NULL) {
-            // Both edited and original file exist so we have to remove the original one
-            remove(original_file->full_path_file);
-            *file_counter += 1;
-        }
-        if (strcmp(current_node->extension, AAE_EXTENSION) == 0) {
-            // Now we can remove the aae file
-            remove(current_node->full_path_file);
-            *file_counter += 1;
+        tmp_node = current_node->next;
+        if (strcmp(current_node->extension, AAE_EXTENSION) == 0 && edited_flag == TRUE) {
+            Node *original_file = find_in_table(table, current_node->file_name);
+            Node *edited_file = find_in_table(table, get_edited_name(current_node->file_name));
+            if (original_file != NULL && edited_file != NULL) {
+                // The original, edited and editing file exist.
+                if (verbose_flag == TRUE) {
+                    printf("%sRemoving: %s%s\n", RED_COLOR, NORMAL_COLOR, original_file->full_path_file);
+                }
+                remove(original_file->full_path_file); // Remove the original file
+                *file_counter += 1;
+            }
+            if (verbose_flag == TRUE) {
+                printf("%sRemoving: %s%s\n", RED_COLOR, NORMAL_COLOR, current_node->full_path_file);
+            }
+            remove(current_node->full_path_file); // Delete the editing file
             delete_node(list, current_node);
+            *file_counter += 1;
         }
-        current_node = current_node->next;
+
+        if (strcmp(current_node->extension, MOV_EXTENSION) == 0 && live_flag == TRUE) {
+            Node *image = find_in_table(table, current_node->file_name);
+            if (image != NULL) {
+                // The image and the live mode image exist
+                if (verbose_flag == TRUE) {
+                    printf("%sRemoving: %s%s\n", RED_COLOR, NORMAL_COLOR, current_node->full_path_file);
+                }
+                remove(current_node->full_path_file); // Remove the mov file
+                delete_node(list, current_node);
+                *file_counter += 1;
+            }
+        }
+        current_node = tmp_node;
+
     }
 }
 
-/**
- *
- * @param table -> the table containing all the other files
- * @param list -> the list containing all the mov and aae files
- */
-void live_removal(HashTable *table, LinkedList *list, int *file_counter) {
-    Node *current_node = list->first;
-    while (current_node != NULL) {
-        Node *image = find_in_table(table, current_node->file_name); // The image corresponding to the mov file
-        if (image != NULL) {
-            // If the image is found, then we do not want to maintain the mov file and we can remove it
-            remove(current_node->full_path_file);
-            *file_counter += 1;
-        }
-        if (strcmp(current_node->extension, MOV_EXTENSION) == 0) {
-            delete_node(list, current_node);
-        }
-        current_node = current_node->next;
-    }
-}
-
-void delete_files(HashTable *table, LinkedList *list, int edited_flag, int live_flag, int *file_counter) {
-    if (edited_flag == TRUE) {
-        edited_removal(table, list, file_counter);
-    }
-    if (live_flag == TRUE) {
-        live_removal(table, list, file_counter);
-    }
-}
 
 void process_dir(char *path, HashTable *table, LinkedList *list, int edited_flag, int live_flag, int recursive_flag) {
     DIR *dir_pointer = opendir(path);

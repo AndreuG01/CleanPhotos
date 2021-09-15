@@ -6,9 +6,9 @@
 #define CLEANPHOTOS_LINKED_LIST_H
 
 typedef struct _node {
-    char file_name[2000];
-    char full_path_file[2000];
-    char extension[20];
+    char file_name[2000]; // The directory where the file is located, with the name of the file without extension
+    char full_path_file[2000]; // The directory where the file is located, with the name and extension
+    char extension[20]; // The extension of the file
     struct _node *next;
 } Node;
 
@@ -16,6 +16,7 @@ typedef struct _node {
 typedef struct _linkedList {
     Node *first;
     Node *last;
+    int num_nodes;
 } LinkedList;
 
 

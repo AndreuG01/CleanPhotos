@@ -116,4 +116,5 @@ void print_help() {
     printf("  -e, --edited      Removes the editing file and the original file if there is an edited file\n");
     printf("  -l, --live        Removes the video of a live mode picture\n");
     printf("  -r, --recursive   Allows the program to process subdirectories of the given directory\n");
+    printf("  -v, --verbose     Explains what the program is doing\n");
 }

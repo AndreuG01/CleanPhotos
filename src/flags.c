@@ -13,7 +13,8 @@ int flags_are_correct(int argc, char *argv[]) {
     }
     for (int i = 1; i < argc - 1; i++) {
         if (!(strcmp(argv[i], EDITED_FLAG_SHORT) == 0 || strcmp(argv[i], EDITED_FLAG_LONG) == 0 || strcmp(argv[i], LIVE_FLAG_SHORT) == 0
-              || strcmp(argv[i], LIVE_FLAG_LONG) == 0 || strcmp(argv[i], RECURSIVE_FLAG_SHORT) == 0 || strcmp(argv[i], RECURSIVE_FLAG_LONG) == 0)) {
+              || strcmp(argv[i], LIVE_FLAG_LONG) == 0 || strcmp(argv[i], RECURSIVE_FLAG_SHORT) == 0 || strcmp(argv[i], RECURSIVE_FLAG_LONG) == 0
+              || strcmp(argv[i], VERBOSE_FLAG_SHORT) == 0 || strcmp(argv[i], VERBOSE_FLAG_LONG) == 0)) {
             return FALSE;
         }
     }

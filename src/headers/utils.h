@@ -13,6 +13,8 @@
 #define LIVE_FLAG_LONG "--live"
 #define RECURSIVE_FLAG_SHORT "-r"
 #define RECURSIVE_FLAG_LONG "--recursive"
+#define VERBOSE_FLAG_SHORT "-v"
+#define VERBOSE_FLAG_LONG "--verbose"
 
 
 
@@ -23,7 +25,10 @@
 #define DIR_OPENED_WRONG_MSG "Could not open the directory: "
 #define MALLOC_WRONG_MSG "Memory allocation went wrong"
 
-
+// Color codes
+#define RED_COLOR "\x001b[31m"
+#define NORMAL_COLOR "\x001b[0m"
+#define GREEN_COLOR "\x001b[32m"
 
 // Error codes
 #define DIR_NOT_OPENED_EXIT_CODE 100

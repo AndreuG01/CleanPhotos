@@ -7,7 +7,7 @@
 
 #include "linked_list.h"
 
-#define N 1001
+#define N 1009
 
 
 typedef struct _hashTable {

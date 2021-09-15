@@ -27,6 +27,7 @@ LinkedList *init_list(LinkedList *list) {
     //LinkedList *list = malloc(sizeof(LinkedList));
     list->first = NULL;
     list->last = NULL;
+    list->num_nodes = 0;
 
     return list;
 }
@@ -42,6 +43,7 @@ LinkedList *add_node_as_last(LinkedList *list, char *file_name, char *full_path_
         list->last->next = node;
         list->last = node;
     }
+    list->num_nodes += 1;
 
     return list;
 }
@@ -70,6 +72,7 @@ LinkedList *delete_node(LinkedList *list, Node *node) {
             list->last = tmp_node;
         }
     }
+    list->num_nodes -= 1;
 
     return list;
 }
@@ -114,9 +117,10 @@ void clear_list(LinkedList *list) {
 
 void print_list(LinkedList *list) {
     Node *tmp_node = list->first;
-
+    int counter = 1;
     while (tmp_node != NULL) {
-        printf("%s --> (%s)\n", tmp_node->file_name, tmp_node->full_path_file);
+        printf("%d) %s --> (%s)\n", counter, tmp_node->file_name, tmp_node->full_path_file);
         tmp_node = tmp_node->next;
+        counter += 1;
     }
 }
