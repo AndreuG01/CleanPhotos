@@ -28,15 +28,16 @@ in case a live mode image.
 
 ## 2. Usage
 
-The first thing that has to be done is to compile the program and obtain the executable file
+The first thing that has to be done is to compile the program and obtain the executable file.
 
-The program can receive three different flags:
+The program can receive four different flags:
 ```
 -e or --edited
 -l or --live
 -r or --recursive
+-v or --verbose
 ```
-To make the program run:
+To run the program:
 ```
 ./CleanPhotos (flags) (directory that wants to be processed)
 ```
