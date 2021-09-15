@@ -68,5 +68,4 @@ void print_hash_table(HashTable *table) {
             printf("-------------\n");
         }
     }
-
 }
